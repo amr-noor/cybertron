@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <title>Cybertron</title>
+  
+  <style>
+    :root {
+      --small: 18px;
+      --regular: 25px;
+      --large: 50px;
+      --space: 30px;
+      --trans: .5s;
+      --radius: 20px;
+      --exp: linear-gradient(to right, #1fa2ff, #12d8fa, #06ffcb);
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "Rubik", sans-serif;
+      box-sizing: border-box;
+      word-break: break-word;
+    }
+    
+    body {
+      background: #fff;
+      direction: rtl;
+    }
+    
+    .container {
+      padding-inline: var(--space);
+      margin-inline: auto;
+      
+      @media (width >= 768px) { width: 750px; }
+      @media (width >= 992px) { width: 970px; }
+      @media (width >= 1200px) { width: 1170px; }
+    }
+    
+    p { 
+      line-height: 1.7;
+      font-size: var(--small);
+    }
+    a { color: #000; }
+    ul  { padding-right: var(--space); }
+    button {
+      border: none;
+      outline: none;
+    }
+    
+    /* routing */
+    body:not(:has(:target)) #home {
+      display: block;
+      animation: fade var(--trans) ease forwards;
+      
+      & #info {
+        display: block;
+        animation: fade var(--trans) ease forwards;
+      }
+    }
+    
+    .display {
+      display: none;
+      
+      &:target, 
+      &:has(:target) {
+        display: block;
+        animation: fade var(--trans) ease forwards;
+      }
+    }
+    
+    .page {
+      display: none;
+      
+      & section {
+        padding-block: 80px;
+      }
+      
+      &:target {
+        display: block;
+        animation: fade var(--trans) ease forwards;
+      }
+    }
+    
+    /* header */
+    #home header {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: var(--space) 0;
+      width: 80%;
+      margin: 0 auto var(--space);
+      border-bottom: 2px solid #ddd;
+      
+      & a {
+        font-weight: bold;
+        font-size: var(--small);
+        text-decoration: none;
+        
+        &:nth-child(2) { font-size: var(--regular); }
+      }
+    }
+    
+    /* logo */
+    .logo {
+      --color: #fff;
+      --width: 300px;
+      position: relative;
+      width: calc(var(--width) / 2 - var(--width) / 2 / 4);
+      height: calc(var(--width) / 2 - var(--width) / 2 / 4);
+      border-radius: 50%;
+      border: calc(var(--width) / 2 / 4) solid;
+      border-color: var(--color) transparent var(--color) var(--color);
+      box-sizing: content-box;
+      
+      &:before {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(100% - var(--width) / 2 / 4);
+        height: calc(var(--width) / 2 / 4 / 2);
+        background: var(--color);
+      }
+      
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(var(--width) / 2 / 4 / 2);
+        height: 50%;
+        background: var(--color);
+      }
+    }
+    
+    /* hero */
+    #home #info .hero {
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      gap: var(--space);
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding-inline: var(--space);
+      background-color: #000;
+      background-image: url(https://cdn.dribbble.com/userupload/21754386/file/original-b01dac9e844ff6ead83d7bd57afc6d87.gif);
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        background: linear-gradient(0, #fff, transparent);
+      }
+      
+      & h1 { font-size: var(--large); }
+    }
+    
+    /* info */
+    #home #info .info {
+      & .content > * {
+        margin-block: var(--space);
+      }
+      
+      & .imgs {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        
+        & img {
+          width: min(25vw, 300px);
+          aspect-ratio: auto;
+        }
+      }
+    }
+    
+    /* help page */
+    #help .container {
+      & > * { margin-block: var(--space); }
+      & h1 { font-size: var(--regular); }
+      & ul li { font-size: var(--small); }
+    }
+    
+    /* play page */
+    #home #play {
+      text-align: center;
+      padding-block: var(--space);
+      
+      & h1 { font-size: var(--large); }
+      
+      & > div {
+        margin-block: var(--space);
+        
+        & p {
+          font-size: var(--small);
+          color: #777;
+          
+          &:nth-child(2) {
+            font-size: small;
+            margin-top: var(--space);
+            
+            & span { font-size: var(--small); }
+          }
+        }
+        
+        & div, span {
+          font-size: var(--regular);
+          font-weight: bold;
+          color: #000;
+        }
+        
+        & progress {
+          appearance: none;
+          width: min(50vw, 500px);
+          
+          &::-webkit-progress-bar {
+            background: #ddd;
+            height: 20px;
+            overflow: hidden;
+            border-radius: 20px;
+          }
+          
+          &::-webkit-progress-value {
+            background: var(--exp);
+            height: 20px;
+            border-radius: 20px;
+          }
+        }
+      }
+      
+      & a {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: var(--regular);
+        font-weight: bold;
+        color: #fff;
+        background: var(--exp);
+        border-radius: 30px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: var(--trans);
+        
+        &:hover { transform: scale(1.03); }
+      }
+    }
+    
+    /* footer */
+    #home footer {
+      padding: var(--space) 0;
+      width: 80%;
+      margin: var(--space) auto 0;
+      border-top: 2px solid #ddd;
+      
+      & p { font-size: medium; }
+    }
+    
+    /* game */
+    #game {      
+      & .container { position: relative; }
+      
+      & header {
+        display: flex;
+        justify-content: space-around;
+        padding: var(--space) 0;
+        font-size: var(--regular);
+      }
+      
+      & .score {
+        width: fit-content;
+        margin: 0 auto var(--space);
+        font-size: var(--large);
+        font-weight: bold;
+        color: transparent;
+        background-clip: text;
+        background-image: var(--exp);
+      }
+      
+      & .email {
+        margin: auto;
+        padding: var(--space);
+        background: #eee;
+        border-radius: var(--radius);
+        max-width: 700px;
+        
+        & > *:not(:last-child) { margin-bottom: var(--space); }
+        
+        & .info {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: calc(var(--space) / 2);
+          background: #ddd;
+          width: fit-content;
+          padding: 20px;
+          border-radius: var(--radius);
+          
+          & div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #777;
+            border-radius: 50%;
+            font-size: var(--regular);
+            color: #fff;
+            width: 50px;
+            height: 50px;
+          }
+        }
+        
+        & h3, .body {
+          font-size: var(--regular);
+          
+          & a {
+            position: relative;
+            color: #00f;
+            pointer-events: none;
+            
+            &:before { content: "*"; }
+            
+            &:after {
+              content: "*" attr(href);
+              display: block;
+              direction: ltr;
+              background: #ddd;
+              width: fit-content;
+              border-radius: var(--radius);
+              padding: calc(var(--space) / 2);
+              margin-block: 10px;
+            }
+          }
+        }
+      }
+      
+      & .answer {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        gap: var(--space);
+        margin-top: var(--space);
+        padding: var(--space);
+        
+        & label {
+          width: 200px;
+          text-align: center;
+          background: #1fa2ff;
+          color: #fff;
+          font-size: x-large;
+          padding-block: var(--space);
+          border-radius: 50px;
+          transition: var(--trans);
+          
+          & + input:checked,
+          input:disabled {
+            filter: brightness(70%);
+          }
+        }
+      }
+      
+      & footer {
+        padding: var(--space);
+        
+        & p {
+          width: fit-content;
+          margin: auto;
+          color: #f00;
+        }
+      }
+      
+      & .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: #fff;
+        padding: var(--space);
+        animation: fade var(--trans) ease forwards;
+        
+        & h1 {
+          font-size: var(--large);
+          text-align: center;
+          margin-bottom: var(--space);
+        }
+        
+        & .card {
+          padding: var(--space);
+          background: #eee;
+          border-radius: var(--radius);
+          
+          & > *:not(:last-child) { margin-bottom: var(--space); }
+        }
+      }
+      
+      & .explain {
+        & .lvl {
+          font-size: var(--regular);
+          font-weight: bold;
+        }
+        
+        & a { pointer-events: none; }
+        
+        & button, .exit {
+          background: #1fa2ff;
+          color: #fff;
+          font-size: medium;
+          padding: 5px 20px ;
+          border-radius: 20px;
+          transition: var(--trans);
+          
+          &:active,
+          &:disabled { filter: brightness(70%); }
+          &:disabled  { cursor: not-allowed; }
+        }
+        
+        & .exit {
+          pointer-events: all;
+          margin-right: 10px;
+          text-decoration: none;
+        }
+        
+        &.win {
+          background: #9e9;
+          /* background-image: url(https://cdn.pixabay.com/animation/2023/08/17/08/51/08-51-41-992_512.gif);
+          background-size: cover; */
+          
+          & h1 { color: #080; }
+          & .card {
+            background: #080;
+            color: #fff;
+          }
+        }
+        
+        &.lose {
+          background: #f00;
+    
+          & h1 { color: #8b0000; }
+          & .card {
+            background: #8b0000;
+            color: #fff;
+          }
+        }
+      }
+    }
+    
+    /* animation */
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <script type="text/babel">
+    let Layer = props => {
+      if (props.condition) {
+        return <div className={ "layer " + props.styleClass }>
+          <h1>{ props.text }</h1>
+          <div className="card">{ props.children }</div>
+        </div>;
+      }
+    };
+    
+    const GameFooter = () => <footer>
+      <p>
+        <b>تحذير</b> : هذه الرسائل تم انتاجها بواسطة الذكاء الاصطناعي،<br />
+        يرجي عدم الدخول علي الروابط التي بداخل البريد المزيف او مراسلة عناوين البريد لضمان الامان لكم.
+      </p>
+    </footer>;
+    
+    const GameHeader = () => <header>
+      <a href="#help"><i className="fa-solid fa-circle-info"></i></a>
+      <a href="#play"><i className="fa-solid fa-arrow-right-from-bracket"></i></a>
+    </header>;
+    
+    const Game = () => {
+      const [loading, setLoading] = React.useState(false),
+      [news, setNews] = React.useState([]),
+      [btn, setBtn] = React.useState(0),
+      [data, setData] = React.useState({}),
+      [explain, setExplain] = React.useState(false),
+      [win, setWin] = React.useState(false),
+      [points, setPoints] = React.useState(0),
+      
+      score = ans => {
+        setExplain(true);
+        
+        if (ans == data.phishing) {
+          setWin(true);
+          setPoints(prev => {
+            const value = (btn + 1) * 100;
+            generate.stats(value, true);
+            return value;
+          });
+          new Audio("https://www.myinstants.com/media/sounds/roblox-old-winning-sound-effect.mp3").play();
+        } else {
+          setWin(false);
+          setPoints(prev => prev);
+          new Audio("https://www.myinstants.com/media/sounds/aud-20210417-wa0013.mp3").play();
+        }
+      };
+      
+      React.useEffect(() => {
+        try {
+          generate.news().then(data => {
+            // setNews({source: data[Math.abs(btn % 10)]?.source_url, title: data[Math.abs(btn % 10)]?.title, description: data[Math.abs(btn % 10)]?.description});
+            
+            setNews(prev => ({...prev, source: data[Math.abs(btn % 10)]?.source_url}));
+            generate.trans(data[Math.abs(btn % 10)]?.title).then(data => setNews(prev => ({...prev, title: data})));
+            generate.trans(data[Math.abs(btn % 10)]?.description).then(data => setNews(prev => ({...prev, description: data})));
+          });
+        } catch (err) {
+          throw err;
+        }
+      }, [btn]);
+
+      React.useEffect(() => {
+        setLoading(true);
+        try {
+          generate.email(btn).then(data => {
+            setData(data);
+            setLoading(false);
+          });
+        } catch (err) {
+          throw err;
+        }
+      }, [btn]);
+      
+      return <div className="display" id="game">
+        <GameHeader />
+        <div className="container">
+          <section className="score">{ points }</section>
+          <section className="email">
+            <div className="info">
+              <div>{ data?.sender?.[0].toUpperCase() || "?" }</div>
+              <p>{ data?.sender || "جاري التحميل..." }</p>
+            </div>
+            <h3>{ data?.subject || "جاري التحميل..." }</h3>
+            <p className="body" dangerouslySetInnerHTML={{ __html: (data?.body || "جاري التحميل...") }}></p>
+          </section>
+          <form className="answer">
+            <label htmlFor="phishing">تصيد</label>
+            <input disabled={explain || loading} onClick={() => score(true)} type="radio" id="phishing" name="ans" hidden />
+            <label htmlFor="notphishing">غير تصيد</label>
+            <input disabled={explain || loading} onClick={() => score(false)} type="radio" id="notphishing" name="ans" hidden />
+          </form>
+          <Layer condition={ explain } text={ win ? "احسنت :)" : "حظ اوفر :(" } styleClass={ "explain " + (win ? "win" : "lose") }>
+            <p className="lvl">المستوي { btn + 1 }</p>
+            <p className="lvl">هذا بريد { data.phishing ? "تصيد" : "ليس تصيد" }</p>
+            <p dangerouslySetInnerHTML={{ __html: (data?.explanation || "Loading...") }}></p>
+            { win ? <button disabled={loading} onClick={ () => {setBtn(btn + 1); setExplain(false)} }>التالي</button> :
+            <button disabled={loading} onClick={ () => { setBtn(0); setPoints(0); setExplain(false); } }>اعد المحاوله</button>}
+            <a className="exit" href="#play" onClick={ () => { setBtn(0); setPoints(0); setExplain(false); } }>خروج</a>
+          </Layer>
+          <Layer condition={ loading } text="جاري التحميل..." styleClass="load">
+            <h3>اخبار : { news.title || "جاري التحميل..." }</h3>
+            <p>{ news.description || "جاري التحميل..." }...</p>
+            <a target="_blank" href={ news.source }>المصدر : { news.source || "جاري التحميل..." }</a>
+          </Layer>
+        </div>
+        <GameFooter />
+      </div>;
+    };
+    
+    const Play = () => <div className="page" id="play">
+      <h1>سايبرترون</h1>
+      <div>
+        <p>أفضل نقاط</p>
+        <div>{ generate.stats(0).high }</div>
+      </div>
+      <div>
+        <p>المستوي <span>{ Math.floor(generate.stats(0).exp / 1000) }</span></p>
+        <p>متبقي <span>{ (Math.floor(generate.stats(0).exp / 1000) + 1) * 1000 - generate.stats(0).exp }</span> نقطة</p>
+        <progress value={ generate.stats(0).exp - Math.floor(generate.stats(0).exp / 1000) * 1000 } max="1000"></progress>
+      </div>
+      <a href="#game">العب</a>
+    </div>;
+    
+    const Help = () => <div className="page" id="help">
+      <div className="container">
+        <p>مرحبا بك في لعبة سايبرترون لمحاكاة التصيد!</p>
+        <p>تهدف هذه اللعبة إلى تعليمك كيفية التعرف على رسائل البريد الإلكتروني التصيدية بطريقة تفاعلية وآمنة.</p>
+        <h1>ما هي لعبة محاكاة التصيد؟</h1>
+        <p>لعبة تهدف إلى رفع الوعي الأمني من خلال عرض سيناريوهات تحاكي محاولات تصيّد إلكتروني حقيقية. يجب على اللاعب تحديد ما إذا كانت الرسالة/الرابط آمنا أو احتياليا.</p>
+        <h1>أهداف اللعبة</h1>
+        <ul>
+          <li>زيادة الوعي بالهجمات الإلكترونية.</li>
+          <li>تعليم كيفية التحقق من الروابط والمرفقات.</li>
+          <li>التفرقة بين الرسائل الحقيقية والمزيفة.</li>
+          <li>تحسين مهارات الأمن السيبراني لدى المستخدمين.</li>
+        </ul>
+        <h1>كيفية اللعب</h1>
+        <ul>
+          <li>اقرأ كل رسالة بعناية.</li>
+          <li>افحص عنوان المرسل، الرابط، والمحتوى.</li>
+          <li>اختر ما إذا كانت الرسالة آمنة أو محاولة تصيد.</li>
+          <li>ستحصل على شروحات للمستوى.</li>
+        </ul>
+        <h1>نصائح لاكتشاف التصيد</h1>
+        <ul>
+          <li>تحقق من عنوان البريد الإلكتروني للمرسل.</li>
+          <li>ابحث عن أخطاء إملائية أو لغوية.</li>
+          <li>لا تضغط على روابط غير معروفة.</li>
+          <li>لا تدخل معلوماتك الشخصية في مواقع غير موثوقة.</li>
+          <li>
+            تأكد من أن الموقع يبدأ بـ 
+            <u>https://</u>.
+          </li>
+        </ul>
+        <h1>الدعم الفني</h1>
+        <p>
+          إذا واجهت أي مشكلة في اللعبة، يرجى التواصل معنا على البريد الإلكتروني : 
+          <a href="mailto:cybertron.digitopia@gmail.com">cybertron.digitopia@gmail.com</a>
+        </p>
+        <p>
+          إذا تعرضت الي اي تهديد عبر الانترنت تواصل مع مباحث الإنترنت عبر الخط الساخن : 
+          <a href="tel:108">108</a>
+        </p>
+      </div>
+    </div>;
+    
+    const Info = () => <div className="page" id="info">
+      <section className="hero">
+        <div className="logo"></div>
+        <h1>سايبرترون</h1>
+      </section>
+      <section className="info">
+        <div className="container">
+          <div className="content">
+            <p><b>سايبرترون</b> هو فريق تابع لمسابقة <b>ديجيتوبيا</b> التابعة لـ<b>وزارة الإتصالات</b>.</p>
+            <p>و هذا المشروع هدفه هو تعليم المستخدم كيفية تجنب الهجمات التصيدية عن طريق لعبة باللهجة العربية.</p>
+            <p>و القائمون علي هذا المشروع هم :</p>
+            <ul>
+              <li>قائد الفريق : <a href="http://amr.ct.ws/">عمرو محمد</a></li>
+              <li>مطور المشروع : <a href="#">ياسين حسين</a></li>
+              <li>مصمم المشروع : <a href="#">عبد الرحمن مجدي</a></li>
+            </ul>
+            <a href="https://drive.google.com/file/d/18ilUviWbeRDoM8GJv27Zv-PcDzwFxEaD/view?usp=drive_link" target="_blank" rel="noopener">رابط فيديو فكره المشروع</a>
+          </div>
+          <div className="imgs">
+            <img src="https://digitopia.gov.eg/static/home/images/con_logo2.5ec8822ee352.png" alt="digitopia" /> 
+            <img src="https://digitopia.gov.eg/static/home/images/new/TECH-EGYPT-LOGO.d9faa608b4de.png" alt="tech egy" />
+          </div>
+        </div>
+      </section>
+    </div>;
+    
+    const HomeFooter = () => <footer>
+      <p>للتواصل : <a href="mailto: cybertron.digitopia@gmail.com">cybertron.digitopia@gmail.com</a></p>
+      <p>&copy; 2025 جميع الحقوق محفوظة</p>
+    </footer>;
+    
+    const HomeHeader = () => <header>
+      <a href="#help">مساعدة</a>
+      <a href="#play">اللعب</a>
+      <a href="#info">معلومات</a>
+    </header>;
+    
+    const Home = () => <div className="display" id="home">
+      <HomeHeader />
+      <Info />
+      <Play />
+      <Help />
+      <HomeFooter />
+    </div>;
+    
+    const App = () => <>
+      <Home />
+      <Game />
+    </>;
+    
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+  <script type="module">
+    import { GoogleGenAI } from "https://cdn.jsdelivr.net/npm/@google/genai@1.16.0/+esm";
+
+    const ai = new GoogleGenAI({ apiKey: YOUR_KEY_GO });
+    
+    const email = async diff => {
+      let res = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: YOUR_MESSAGE.replace("(diff)", diff),
+      }),
+      data = JSON.parse(res.text.replace(/^```json\s*|\s*```$/g, ''));
+      
+      return data;
+    };
+    
+    const news = async () => {
+      try {
+        let res = await fetch(`https://newsdata.io/api/1/latest?apikey=${YOUR_KEY_NEW}&q=phishing&language=ar,en`);
+        let json = await res.json();
+        
+        return json.results;
+      } catch (err) {
+        throw err;
+      }
+    };
+    
+    const trans = async text => {
+      try {
+        let res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&dt=t&q=${encodeURIComponent(text)}`),
+        data = await res.json();
+    
+        return data[0][0][0];
+      } catch (err) {
+        throw err;
+      }
+    };
+    
+    const stats = (points, exp = false) => {
+      let raw = localStorage.getItem("key");
+      let data = raw ? JSON.parse(atob(raw)) : { high: 0, exp: 0 };
+      
+      if (exp) data.exp += 100;
+      if (points > data.high) data.high = points;
+      
+      localStorage.setItem("key", btoa(JSON.stringify(data)));
+      return data;
+    };
+    
+    // localStorage.clear();
+    
+    window.generate = { email, news, trans, stats };
+  </script>
+</body>
+</html>
