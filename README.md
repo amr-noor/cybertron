@@ -1,2 +1,2 @@
 # Cybertron
-Check out the game: (cybertron.ct.ws)
+Check out the game: [Game](cybertron.ct.ws)
