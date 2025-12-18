@@ -1,0 +1,46 @@
+.home .info .about {
+    & .content>* {
+        margin-block: var(--space);
+    }
+
+    & .imgs {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        & img {
+            width: min(25vw, 300px);
+            aspect-ratio: auto;
+        }
+    }
+}
+
+.home .info .hero {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: var(--space);
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-inline: var(--space);
+    background-color: #000;
+    background-image: url(https://cdn.dribbble.com/userupload/21754386/file/original-b01dac9e844ff6ead83d7bd57afc6d87.gif);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+
+    &:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        background: linear-gradient(0, #fff, transparent);
+    }
+
+    & h1 {
+        font-size: var(--large);
+    }
+}

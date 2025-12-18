@@ -1,0 +1,6 @@
+.game header nav {
+    display: flex;
+    justify-content: space-around;
+    padding: var(--space) 0;
+    font-size: var(--regular);
+}

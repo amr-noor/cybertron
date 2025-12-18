@@ -1,0 +1,68 @@
+.home .play {
+    text-align: center;
+    padding-block: var(--space);
+
+    & h1 {
+        font-size: var(--large);
+    }
+
+    &>div {
+        margin-block: var(--space);
+
+        & p {
+            font-size: var(--small);
+            color: #777;
+
+            &:nth-child(2) {
+                font-size: small;
+                margin-top: var(--space);
+
+                & span {
+                    font-size: var(--small);
+                }
+            }
+        }
+
+        & div,
+        span {
+            font-size: var(--regular);
+            font-weight: bold;
+            color: #000;
+        }
+
+        & progress {
+            appearance: none;
+            width: min(50vw, 500px);
+
+            &::-webkit-progress-bar {
+                background: #ddd;
+                height: 20px;
+                overflow: hidden;
+                border-radius: 20px;
+            }
+
+            &::-webkit-progress-value {
+                background: var(--exp);
+                height: 20px;
+                border-radius: 20px;
+            }
+        }
+    }
+
+    & a {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: var(--regular);
+        font-weight: bold;
+        color: #fff;
+        background: var(--exp);
+        border-radius: 30px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: var(--trans);
+
+        &:hover {
+            transform: scale(1.03);
+        }
+    }
+}

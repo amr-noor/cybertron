@@ -1,0 +1,9 @@
+.game footer {
+    padding: var(--space);
+
+    & p {
+        width: fit-content;
+        margin: auto;
+        color: #f00;
+    }
+}

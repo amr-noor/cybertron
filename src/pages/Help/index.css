@@ -1,0 +1,13 @@
+.help .container {
+    &>* {
+        margin-block: var(--space);
+    }
+
+    & h1 {
+        font-size: var(--regular);
+    }
+
+    & ul li {
+        font-size: var(--small);
+    }
+}

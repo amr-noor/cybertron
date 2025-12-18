@@ -1,0 +1,10 @@
+.home footer {
+    padding: var(--space) 0;
+    width: 80%;
+    margin: var(--space) auto 0;
+    border-top: 2px solid #ddd;
+
+    & p {
+        font-size: medium;
+    }
+}

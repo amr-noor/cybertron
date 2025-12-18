@@ -1,0 +1,19 @@
+.home header nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: var(--space) 0;
+    width: 80%;
+    margin: 0 auto var(--space);
+    border-bottom: 2px solid #ddd;
+
+    & a {
+        font-weight: bold;
+        font-size: var(--small);
+        text-decoration: none;
+
+        &:nth-child(2) {
+            font-size: var(--regular);
+        }
+    }
+}
